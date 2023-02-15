@@ -27,7 +27,7 @@ aws lambda create-function \
   --role $POLICY_ARN |
   tee logs/2.lambda-create.log
 
-# 5° invoke lambda
+# 6° invoke lambda
 aws lambda invoke \
   --function-name $FUNCTION_NAME \
   logs/3.lambda-exec.log \
@@ -35,17 +35,17 @@ aws lambda invoke \
   --query 'LogResult' \
   --output text | base64 -d
 
-# 6° atualizar, zipar
+# 7° atualizar, zipar
 zip function.zip index.js
 
-# 7° atualizar lambda
+# 8° atualizar lambda
 aws lambda update-function-code \
   --zip-file fileb://function.zip \
   --function-name $FUNCTION_NAME \
   --publish |
   tee logs/4.lambda-update.log
 
-# 7° invokar e ver resultado
+# 9° invokar e ver resultado
 aws lambda invoke \
   --function-name $FUNCTION_NAME logs/5.lambda-exec-update.log \
   --log-type Tail \
@@ -54,7 +54,7 @@ aws lambda invoke \
   --payload '{"name": "issac cabral"}' \
   --output text | base64 -d
 
-# 8° remover os recursos
+# 10° remover os recursos
 aws lambda delete-function \
   --function-name $FUNCTION_NAME
 
