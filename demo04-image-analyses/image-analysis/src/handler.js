@@ -5,7 +5,7 @@ class Handler {
   }
 
   async main(event) {
-    console.log("event " + event);
+    console.log(event);
 
     return {
       statusCode: 200,
