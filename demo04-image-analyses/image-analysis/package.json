@@ -6,7 +6,8 @@
   "scripts": {
     "invoke": "sls invoke -f img-analysis",
     "invoke:local": "sls invoke local -f img-analysis",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "",
