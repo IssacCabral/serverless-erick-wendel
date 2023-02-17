@@ -1,6 +1,10 @@
 const Handler = require("./handler");
 const AWS = require("aws-sdk");
 
+AWS.config.update({
+  region: "us-east-1",
+});
+
 const Rekognition = new AWS.Rekognition();
 const Translate = new AWS.Translate();
 
