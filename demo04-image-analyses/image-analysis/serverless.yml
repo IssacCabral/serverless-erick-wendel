@@ -1,0 +1,25 @@
+service: image-analysis
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - rekognition:DetectLabels
+          Resource: "*" # pode usar qualquer coisa desse serviço
+        - Effect: Allow
+          Action:
+            - translate:TranslateText
+          Resource: "*"
+functions:
+  img-analysis:
+    handler: src/index.main
+    events:
+      - httpApi:
+          path: /analyse
+          method: get
