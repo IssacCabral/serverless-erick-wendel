@@ -1,5 +1,4 @@
 const { describe, it, expect } = require("@jest/globals");
-
 const requestMock = require("../mocks/request.json");
 const { main } = require("../../src");
 
@@ -13,7 +12,16 @@ describe("Image Analyser test suit", () => {
     expect(result).toStrictEqual(expected);
   });
 
-  test.todo("given an empty queryString it should return status code 400");
+  test("given an empty queryString it should return status code 400", async () => {
+    const expected = {
+      statusCode: 400,
+      body: "an IMG URL is required",
+    };
+    const result = await main({
+      queryStringParameters: {},
+    });
+    expect(result).toStrictEqual(expected);
+  });
 
   test.todo("given an invalid ImageURL it should return 500");
 });
