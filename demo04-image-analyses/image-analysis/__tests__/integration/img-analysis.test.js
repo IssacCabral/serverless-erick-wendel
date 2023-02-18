@@ -23,5 +23,16 @@ describe("Image Analyser test suit", () => {
     expect(result).toStrictEqual(expected);
   });
 
-  test.todo("given an invalid ImageURL it should return 500");
+  test("given an invalid ImageURL it should return 500", async () => {
+    const expected = {
+      statusCode: 500,
+      body: "Internal Server Error",
+    };
+    const result = await main({
+      queryStringParameters: {
+        imageUrl: "invalidUrl",
+      },
+    });
+    expect(result).toStrictEqual(expected);
+  });
 });
