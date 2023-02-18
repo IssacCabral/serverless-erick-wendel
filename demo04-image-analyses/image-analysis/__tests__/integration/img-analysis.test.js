@@ -1,4 +1,4 @@
-const { describe, it, expect } = require("@jest/globals");
+const { describe, expect } = require("@jest/globals");
 const requestMock = require("../mocks/request.json");
 const { main } = require("../../src");
 
@@ -6,7 +6,7 @@ describe("Image Analyser test suit", () => {
   test("it should analyse successfuly the image returning the results", async () => {
     const expected = {
       statusCode: 200,
-      body: "Hello",
+      body: "A imagem tem\n99.89% de ser do tipo Pastor alemão\n99.89% de ser do tipo canino\n99.89% de ser do tipo animal de estimação\n99.89% de ser do tipo cão\n99.89% de ser do tipo animal\n99.89% de ser do tipo mamífero",
     };
     const result = await main(requestMock);
     expect(result).toStrictEqual(expected);
