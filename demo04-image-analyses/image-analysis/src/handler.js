@@ -26,7 +26,7 @@ class Handler {
       ({ Confidence }) => Confidence > 80
     );
 
-    const names = workingItems.map(({ Name }) => Name);
+    const names = workingItems.map(({ Name }) => Name).join(" and ");
 
     return {
       names,
@@ -34,18 +34,34 @@ class Handler {
     };
   }
 
+  formatTextResults(texts, workingItems) {
+    const finalText = [];
+    for (const indexText in texts) {
+      const nameInPortuguese = texts[indexText];
+      const confidence = workingItems[indexText];
+
+      finalText.push(
+        `${confidence.Confidence.toFixed(
+          2
+        )}% de ser do tipo ${nameInPortuguese}`
+      );
+    }
+
+    return finalText.join("\n");
+  }
+
   async translateText(text) {
     const params = {
       SourceLanguageCode: "en",
       TargetLanguageCode: "pt",
-      Text: text.toString(),
+      Text: text,
     };
 
     const { TranslatedText } = await this.translatorSvc
       .translateText(params)
       .promise();
 
-    return TranslatedText.split(",");
+    return TranslatedText.split(" e ");
   }
 
   async main(event) {
@@ -59,18 +75,17 @@ class Handler {
         };
       }
 
-      console.log("downloading image...");
       const buffer = await this.getImageBuffer(imageUrl);
-
-      console.log("detecting labels...");
       const { names, workingItems } = await this.detectImageLabels(buffer);
-
-      console.log("translating to portuguese...");
       const texts = await this.translateText(names);
-      console.log(texts);
+
+      const result = this.formatTextResults(texts, workingItems);
+
+      console.log(result);
+
       return {
         statusCode: 200,
-        body: "Hello",
+        body: `A imagem tem\n${result}`,
       };
     } catch (err) {
       console.error(err.stack);
