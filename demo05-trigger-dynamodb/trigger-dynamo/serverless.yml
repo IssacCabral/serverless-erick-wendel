@@ -4,6 +4,7 @@ frameworkVersion: "3"
 provider:
   name: aws
   runtime: nodejs18.x
+  region: us-east-1
   environment:
     DYNAMODB_TABLE: Heroes
   iam:
@@ -14,7 +15,7 @@ provider:
             - dynamodb:GetItem
             - dynamodb:UpdateItem
             - dynamodb:PutItem
-          Resource: "*"
+          Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 resources:
   Resources:
