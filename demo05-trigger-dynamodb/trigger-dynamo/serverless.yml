@@ -1,0 +1,17 @@
+service: trigger-dynamo
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  heroes-insert:
+    handler: src/index.main
+    events:
+      - http:
+          path: /heroes
+          method: post
+          cors: true
+plugins:
+  - serverless-plugin-typescript
