@@ -4,4 +4,4 @@ import * as AWS from "aws-sdk";
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const handler = new Handler(dynamoDb);
 
-export default handler.main;
+export default handler.main.bind(handler);
