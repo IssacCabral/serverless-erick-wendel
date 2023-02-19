@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "@types/aws-sdk": "^2.7.0",
+    "@types/uuid": "^9.0.0",
     "aws-sdk": "^2.1318.0",
-    "serverless-dotenv-plugin": "^4.0.2"
+    "serverless-dotenv-plugin": "^4.0.2",
+    "uuid": "^9.0.0"
   }
 }
