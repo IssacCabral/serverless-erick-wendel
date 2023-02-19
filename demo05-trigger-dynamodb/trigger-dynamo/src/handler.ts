@@ -1,9 +1,13 @@
+import { APIGatewayEvent } from "aws-lambda";
+
 class Handler {
-  async main() {
+  constructor(private readonly dynamoDbSvc) {}
+
+  async main(event: APIGatewayEvent) {
     try {
       return {
         statusCode: 200,
-        body: "",
+        body: "hello",
       };
     } catch (error) {
       console.error(error);
