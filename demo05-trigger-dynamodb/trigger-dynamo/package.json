@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "invoke-local": "sls invoke local -f heroes-insert --path request-mock/hero.insert.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,10 +12,12 @@
   "license": "ISC",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.110",
+    "@types/hapi__joi": "^17.1.9",
     "serverless-plugin-typescript": "^2.1.4",
     "typescript": "^4.9.5"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "@types/aws-sdk": "^2.7.0",
     "@types/uuid": "^9.0.0",
     "aws-sdk": "^2.1318.0",

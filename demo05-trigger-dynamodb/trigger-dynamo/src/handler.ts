@@ -1,11 +1,19 @@
 import * as AWS from "aws-sdk";
 import { APIGatewayEvent } from "aws-lambda";
 import { v1 } from "uuid";
+import * as Joi from "@hapi/joi";
 
 class Handler {
   private readonly dynamoDbTable: string;
   constructor(private readonly dynamoDbSvc: AWS.DynamoDB.DocumentClient) {
     this.dynamoDbTable = process.env.DYNAMODB_TABLE ?? "";
+  }
+
+  static validator() {
+    return Joi.object({
+      nome: Joi.string().max(100).min(2).required(),
+      poder: Joi.string().max(20).required(),
+    });
   }
 
   private prepareData(data) {
@@ -42,10 +50,14 @@ class Handler {
 
   async main(event: APIGatewayEvent) {
     try {
-      const data = JSON.parse(event.body ?? "");
-      const dbParams = this.prepareData(data);
-      await this.insertItem(dbParams);
-      return this.handlerSuccess(dbParams.Item);
+      const data = event.body;
+      console.log(data);
+      return {
+        statusCode: 200,
+      };
+      // const dbParams = this.prepareData(data);
+      // await this.insertItem(dbParams);
+      // return this.handlerSuccess(dbParams.Item);
     } catch (error) {
       console.error(error.stack);
       return this.handlerError({ statusCode: 500 });

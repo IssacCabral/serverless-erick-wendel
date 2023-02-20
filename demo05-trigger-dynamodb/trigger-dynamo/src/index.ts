@@ -1,3 +1,3 @@
-import main from "./factory";
+import { main } from "./factory";
 
 export { main };
