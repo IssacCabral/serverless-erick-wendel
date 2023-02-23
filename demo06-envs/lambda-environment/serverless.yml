@@ -9,13 +9,19 @@ provider:
   stage: ${opt:stage, "qa"}
   environment: ${file(./config/env.${self:provider.stage}.json)}
 
+custom:
+  schedulerRate: rate(1 minute)
+  enabled: true
+
 functions:
   commit-message-scheduler:
     handler: handler.scheduler
     events:
-      - httpApi:
-          path: /
-          method: get
+      - schedule:
+          rate: ${self:custom.schedulerRate}
+          name: schedule-commit-message-${self:provider.stage}
+          description: get commit messages each minute
+          enable: ${self:custom.enabled}
 
 plugins:
   - serverless-plugin-typescript
