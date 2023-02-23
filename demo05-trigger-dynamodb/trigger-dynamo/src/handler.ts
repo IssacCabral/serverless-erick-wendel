@@ -51,13 +51,10 @@ class Handler {
   async main(event: APIGatewayEvent) {
     try {
       const data = event.body;
-      console.log(data);
-      return {
-        statusCode: 200,
-      };
-      // const dbParams = this.prepareData(data);
-      // await this.insertItem(dbParams);
-      // return this.handlerSuccess(dbParams.Item);
+      const dbParams = this.prepareData(data);
+
+      await this.insertItem(dbParams);
+      return this.handlerSuccess(dbParams.Item);
     } catch (error) {
       console.error(error.stack);
       return this.handlerError({ statusCode: 500 });

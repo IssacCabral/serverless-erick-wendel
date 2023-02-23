@@ -6,7 +6,7 @@ provider:
   runtime: nodejs18.x
   region: us-east-1
   environment:
-    DYNAMODB_TABLE: Heroes
+    DYNAMODB_TABLE: Heroes # seta no process.env a variável DYNAMODB_TABLE com o valor Heroes
   iam:
     role:
       statements:

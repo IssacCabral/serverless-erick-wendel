@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "invoke-local": "sls invoke local -f heroes-insert --path request-mock/hero.insert.json",
+    "invoke": "sls invoke -f heroes-insert --path request-mock/hero.insert.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
