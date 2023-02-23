@@ -14,5 +14,5 @@ Table:
         KeyType: RANGE
 
     ProvisionedThroughput:
-      ReadCapacity: ${self:custom.dbReadCapacityUnits}
-      WriteCapacity: ${self:custom.dbWriteCapacityUnits}
+      ReadCapacityUnits: ${self:custom.dbReadCapacityUnits}
+      WriteCapacityUnits: ${self:custom.dbWriteCapacityUnits}
