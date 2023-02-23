@@ -1,7 +1,7 @@
 import { APIGatewayEvent } from "aws-lambda";
 
 const scheduler = async (event: APIGatewayEvent) => {
-  console.log(process.env.MINHA_VARIAVEL);
+  console.log(process.env);
   return {
     statusCode: 200,
     body: JSON.stringify(

@@ -5,8 +5,9 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: us-east-1
-  environment:
-    MINHA_VARIAVEL: ValorQualquer
+  # de acordo com o stage, nós definimos qual ambiente será utilizado
+  stage: ${opt:stage, "qa"}
+  environment: ${file(./config/env.${self:provider.stage}.json)}
 
 functions:
   commit-message-scheduler:
