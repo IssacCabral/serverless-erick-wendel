@@ -1,0 +1,20 @@
+service: lambda-environment
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    MINHA_VARIAVEL: ValorQualquer
+
+functions:
+  commit-message-scheduler:
+    handler: handler.scheduler
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+plugins:
+  - serverless-plugin-typescript
