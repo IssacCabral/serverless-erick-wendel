@@ -15,6 +15,8 @@ provider:
             - dynamodb:GetItem
             - dynamodb:UpdateItem
             - dynamodb:PutItem
+            - dynamodb:ListStreams # permissão para ouvir esse evento
+            - dynamodb:DescribeStream
           Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 resources:
@@ -36,6 +38,8 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
 
 functions:
   heroes-insert:
@@ -45,5 +49,16 @@ functions:
           path: /heroes
           method: post
           cors: true
+
+  heroes-trigger:
+    handler: src/trigger/index.main
+    events:
+      - stream:
+          type: dynamodb
+          arn:
+            Fn::GetAtt:
+              - HeroesTable
+              - StreamArn
+
 plugins:
   - serverless-plugin-typescript
